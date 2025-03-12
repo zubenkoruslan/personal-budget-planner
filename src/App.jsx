@@ -1,7 +1,7 @@
 import React from 'react';
 import BudgetForm from './components/BudgetForm';
-import ExpenseForm from './components/ExpenseForm';
-import ExpenseList from './components/ExpenseList';
+import ExpenseForm from './components/ExpenseForm'; // Reverted
+import ExpenseList from './components/ExpenseList'; // Reverted
 import BudgetSummary from './components/BudgetSummary';
 
 export default function App() {

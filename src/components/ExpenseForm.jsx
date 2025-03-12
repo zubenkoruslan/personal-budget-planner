@@ -4,12 +4,13 @@ import { useBudgetStore } from '../store/budgetStore';
 export default function ExpenseForm() {
   const [category, setCategory] = useState('groceries');
   const [amount, setAmount] = useState('');
-  const { addExpense } = useBudgetStore();
+  const { addExpense } = useBudgetStore(); // Reverted
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!amount || amount <= 0) return;
-    addExpense(category, amount);
+    const parsedAmount = parseFloat(amount);
+    if (!amount || isNaN(parsedAmount) || parsedAmount <= 0) return;
+    addExpense(category, parsedAmount);
     setAmount('');
   };
 
@@ -27,9 +28,10 @@ export default function ExpenseForm() {
       </select>
       <input
         type="number"
+        step="0.01"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
-        placeholder="Expense Amount"
+        placeholder="Expense Amount (e.g., 19.99)" // Reverted
         className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 flex-1"
       />
       <button
