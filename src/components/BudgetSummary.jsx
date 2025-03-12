@@ -6,12 +6,12 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function BudgetSummary() {
-  const { budget, expenses } = useBudgetStore(); // Reverted
+  const { budget, expenses } = useBudgetStore();
 
-  const totalSpent = expenses.reduce((sum, e) => sum + parseFloat(e.amount), 0); // Reverted
+  const totalSpent = expenses.reduce((sum, e) => sum + parseFloat(e.amount), 0);
   const remaining = budget - totalSpent;
 
-  const categoryTotals = expenses.reduce((acc, expense) => { // Reverted
+  const categoryTotals = expenses.reduce((acc, expense) => {
     const amount = parseFloat(expense.amount);
     acc[expense.category] = (acc[expense.category] || 0) + amount;
     return acc;
@@ -24,16 +24,19 @@ export default function BudgetSummary() {
     other: '#8B5CF6', // Purple-500
   };
 
+  const categories = Object.keys(categoryTotals);
+  const dataValues = categories.map((cat) => categoryTotals[cat]);
+  if (remaining > 0) {
+    dataValues.push(remaining);
+  }
+
   const chartData = {
-    labels: [...Object.keys(categoryTotals), remaining > 0 ? 'Remaining' : null].filter(Boolean),
+    labels: [...categories, remaining > 0 ? 'Remaining' : null].filter(Boolean),
     datasets: [
       {
-        data: [
-          ...Object.values(categoryTotals),
-          remaining > 0 ? remaining : null,
-        ].filter(Boolean),
+        data: dataValues,
         backgroundColor: [
-          ...Object.keys(categoryTotals).map((cat) => categoryColors[cat]),
+          ...categories.map((cat) => categoryColors[cat]),
           remaining > 0 ? '#10B981' : null, // Green-500 for Remaining
         ].filter(Boolean),
         borderWidth: 1,
@@ -44,6 +47,7 @@ export default function BudgetSummary() {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    animation: true,
     plugins: {
       legend: { position: 'top' },
       tooltip: {
