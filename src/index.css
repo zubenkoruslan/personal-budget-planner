@@ -4,4 +4,16 @@
 
 body {
   font-family: 'Inter', sans-serif;
+  background-color: #1E2A44; /* Navy blue */
+  color: #FFFFFF; /* White text */
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
 }

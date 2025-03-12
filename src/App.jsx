@@ -1,22 +1,41 @@
 import React from 'react';
+import TransactionForm from './components/TransactionForm';
 import BudgetForm from './components/BudgetForm';
-import ExpenseForm from './components/ExpenseForm'; // Reverted
-import ExpenseList from './components/ExpenseList'; // Reverted
-import BudgetSummary from './components/BudgetSummary';
+import MonthlySpending from './components/MonthlySpending';
+import NetWorth from './components/NetWorth';
+import Categories from './components/Categories';
+import ExpenseIncomeBreakdown from './components/ExpenseIncomeBreakdown';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-8">
-      <header className="max-w-4xl mx-auto mb-8 text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Personal Budget Planner</h1>
-        <p className="text-gray-600">Plan and track your monthly spending</p>
-      </header>
-      <main className="max-w-4xl mx-auto">
-        <BudgetForm />
-        <ExpenseForm />
-        <BudgetSummary />
-        <ExpenseList />
-      </main>
+    <div className="min-h-screen p-4 md:p-6">
+      {/* 1st Row: Forms side by side on desktop */}
+      <div className="flex flex-col lg:flex-row gap-4 mb-6">
+        <div className="w-full lg:w-1/2">
+          <TransactionForm />
+        </div>
+        <div className="w-full lg:w-1/2">
+          <BudgetForm />
+        </div>
+      </div>
+      {/* 2nd Row: MonthlySpending, NetWorth */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-6">
+        <div className="col-span-1">
+          <MonthlySpending />
+        </div>
+        <div className="col-span-1">
+          <NetWorth />
+        </div>
+      </div>
+      {/* 3rd Row: Categories next to ExpenseIncomeBreakdown on tablet/desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="col-span-1">
+          <Categories />
+        </div>
+        <div className="col-span-1">
+          <ExpenseIncomeBreakdown />
+        </div>
+      </div>
     </div>
   );
 }
