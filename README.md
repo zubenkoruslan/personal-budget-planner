@@ -12,3 +12,6 @@ A React app to manage your monthly budget and expenses with Tailwind v3.
 1. Clone: `git clone https://github.com/zubenkoruslan/personal-budget-planner.git`
 2. Install: `npm install`
 3. Run: `npm run dev`
+
+## UI
+![Screenshot](/app-screenshot.png)
